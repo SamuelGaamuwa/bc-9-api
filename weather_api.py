@@ -12,7 +12,9 @@ def weather_api(city):
 			)
 
 		data = json.loads(r.data.decode('utf-8'))
-		return {city: [data['weather'][0]['description'], data['main']['temp']]}
+		return {'name': 		city,
+				'description':	data['weather'][0]['description'], 
+					'temp':		data['main']['temp']}
 	except Exception as e:
 		return e
 
@@ -21,5 +23,4 @@ print('{}\t{}\t{}'.format('City'.ljust(10), 'Description'.ljust(20), 'Temperatur
 print("=" * 50)
 for city in ['London', 'Nairobi', 'Kampala']:
 	info = weather_api(city)
-	for item in info:
-		print ('{}\t{}\t{}'.format(city.ljust(10), str(info[city][0]).ljust(20), str(info[city][1]).ljust(10)))
+	print ('{}\t{}\t{}'.format(info['name'].ljust(10), info['description'].ljust(20), str(info['temp']).ljust(10)))
